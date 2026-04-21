@@ -1,0 +1,165 @@
+// Variables
+$ocean-primary: #0288D1;
+$ocean-dark: #01579B;
+$ocean-light: #4FC3F7;
+$white: #ffffff;
+$gray-50: #f9fafb;
+$gray-100: #f3f4f6;
+$gray-700: #374151;
+$gray-900: #111827;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin card-shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == sm {
+    @media (min-width: 640px) { @content; }
+  } @else if $breakpoint == md {
+    @media (min-width: 768px) { @content; }
+  } @else if $breakpoint == lg {
+    @media (min-width: 1024px) { @content; }
+  }
+}
+
+// Custom Styles
+.resort-hero {
+  background: linear-gradient(135deg, $ocean-dark, $ocean-primary, $ocean-light);
+  min-height: 600px;
+  @include flex-center;
+  position: relative;
+  overflow: hidden;
+
+  &__title {
+    font-size: 3rem;
+    font-weight: 800;
+    color: $white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+    @include responsive(md) {
+      font-size: 4.5rem;
+    }
+  }
+
+  &__subtitle {
+    font-size: 1.25rem;
+    color: rgba($white, 0.9);
+    margin-top: 1rem;
+  }
+}
+
+.room-card {
+  @include card-shadow;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background: $white;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+
+  &__image {
+    width: 100%;
+    height: 16rem;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  &:hover &__image {
+    transform: scale(1.1);
+  }
+
+  &__price {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: $ocean-primary;
+  }
+}
+
+.btn {
+  &-primary {
+    background: $ocean-primary;
+    color: $white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      background: $ocean-dark;
+      transform: scale(1.05);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &-outline {
+    background: transparent;
+    color: $ocean-primary;
+    border: 2px solid $ocean-primary;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: $ocean-primary;
+      color: $white;
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $ocean-primary;
+  border-radius: 4px;
+}
